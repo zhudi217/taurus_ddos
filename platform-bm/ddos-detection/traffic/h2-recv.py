@@ -49,14 +49,9 @@ def parse_output(pkt):
 
     # Calculate metrics for every 60 packets
     if run_pkt_count % MAX_PKT_COUNT == 0:
-	print("Received {} packets.".format(run_pkt_count))
-    #     print("Received {0} packets.".format(MAX_PKT_COUNT))
+        print("Received {0} packets.".format(MAX_PKT_COUNT))
 
-    #     calc_metrics(pred_outputs, true_labels)
-
-    #     run_pkt_count = 0
-    #     pred_outputs = list()
-    #     true_labels = list()
+        calc_metrics(pred_outputs, true_labels)
 
     h2mr_inlist.append(pkt[CustomHeader].h2mr_ingress)
     h2mr_elist.append(pkt[CustomHeader].h2mr_egress)
@@ -64,20 +59,19 @@ def parse_output(pkt):
     mr2h_elist.append(pkt[CustomHeader].mr2h_egress)
 
     if len(h2mr_inlist) == 600:
-	print("Saving!")
+        print("Saving!")
         with open('h2mr_in.txt', 'a') as tfile1:
             tfile1.write('\n'.join([str(ele) for ele in h2mr_inlist]))
-	    tfile1.write('\n')
+        tfile1.write('\n')
         with open('h2mr_e.txt', 'a') as tfile2:
             tfile2.write('\n'.join([str(ele) for ele in h2mr_elist]))
-	    tfile2.write('\n')
+        tfile2.write('\n')
         with open('mr2h_in.txt', 'a') as tfile3:
             tfile3.write('\n'.join([str(ele) for ele in mr2h_inlist]))
-	    tfile3.write('\n')
+        tfile3.write('\n')
         with open('mr2h_e.txt', 'a') as tfile4:
             tfile4.write('\n'.join([str(ele) for ele in mr2h_elist]))
-	    tfile4.write('\n')
-	exit(1)
+        tfile4.write('\n')
 
 
 # Sniff packets with feature headers
